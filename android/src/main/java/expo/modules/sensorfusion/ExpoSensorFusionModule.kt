@@ -1,47 +1,64 @@
 package expo.modules.sensorfusion
 
+import android.app.Activity
+import android.content.Context.SENSOR_SERVICE
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
+import expo.modules.sensorfusion.support.RotationVectorEventListener
 
-class ExpoSensorFusionModule : Module() {
+private const val EventName = "rotationVectorDidUpdate"
+
+class ExpoSensorFusionModule() : Module() {
+  var sensorManager: SensorManager? = null;
+  var rotationEventListener: RotationVectorEventListener? = null;
+
+
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
   // See https://docs.expo.dev/modules/module-api for more details about available components.
   override fun definition() = ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
+    // Sets the name of the module that JavaScript code will use to refer to the module.
     // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
     // The module will be accessible from `requireNativeModule('ExpoSensorFusion')` in JavaScript.
     Name("ExpoSensorFusion")
 
-    // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
-    Constants(
-      "PI" to Math.PI
-    )
-
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
+    Events(EventName)
 
     // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
     Function("hello") {
       "Hello world! 👋"
     }
 
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { value: String ->
-      // Send an event to JavaScript.
-      sendEvent("onChange", mapOf(
-        "value" to value
-      ))
-    }
+    Function("startObserving") {
+      sensorManager = appContext.reactContext?.getSystemService(SENSOR_SERVICE) as SensorManager
+      rotationEventListener = RotationVectorEventListener(EventName, ::sendEvent)
 
-    // Enables the module to be used as a native view. Definition components that are accepted as part of
-    // the view definition: Prop, Events.
-    View(ExpoSensorFusionView::class) {
-      // Defines a setter for the `name` prop.
-      Prop("name") { view: ExpoSensorFusionView, prop: String ->
-        println(prop)
+      val rotationVectorSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
+
+      if (rotationVectorSensor !== null) {
+        sensorManager?.registerListener(
+          rotationEventListener,
+          rotationVectorSensor,
+          SensorManager.SENSOR_DELAY_FASTEST
+        )
       }
     }
+
+    Function("stopObserving") {
+      sensorManager?.unregisterListener(rotationEventListener);
+    }
+  }
+
+  /**
+   * -----------------------
+   * Private utility methods
+   * -----------------------
+   */
+
+  private fun getActivity(): Activity {
+    val activity = appContext.activityProvider?.currentActivity
+    return activity!!
   }
 }
