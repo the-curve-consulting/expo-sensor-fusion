@@ -9,6 +9,9 @@ PODS:
     - ExpoModulesCore
   - ExpoFileSystem (16.0.5):
     - ExpoModulesCore
+  - ExpoGL (13.6.0):
+    - ExpoModulesCore
+    - ReactCommon/turbomodule/core
   - ExpoKeepAwake (12.8.2):
     - ExpoModulesCore
   - ExpoModulesCore (1.11.8):
@@ -1082,6 +1085,7 @@ DEPENDENCIES:
   - EXFont (from `../node_modules/expo-font/ios`)
   - Expo (from `../node_modules/expo`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
+  - ExpoGL (from `../node_modules/expo-gl`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
   - ExpoSensorFusion (from `../../ios`)
@@ -1154,6 +1158,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo"
   ExpoFileSystem:
     :path: "../node_modules/expo-file-system/ios"
+  ExpoGL:
+    :path: "../node_modules/expo-gl"
   ExpoKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoModulesCore:
@@ -1261,6 +1267,7 @@ SPEC CHECKSUMS:
   EXFont: 21b9c760abd593ce8f0d5386b558ced76018506f
   Expo: 49cded7844f2ec4ffb1cc3b86504853f26952935
   ExpoFileSystem: 04795dd4d47e76eaf12e38c92091f77d794f9e7f
+  ExpoGL: 085542f97b13f2428ac2edb077c9a90f4566944d
   ExpoKeepAwake: 0f5cad99603a3268e50af9a6eb8b76d0d9ac956c
   ExpoModulesCore: 96d1751929ad10622773bb729ab28a8423f0dd0c
   ExpoSensorFusion: 8f28e27704fded65886978eed47fdeb1bb1583c5

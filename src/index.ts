@@ -1,5 +1,1 @@
-import ExpoSensorFusionModule from './ExpoSensorFusionModule';
-
-export function hello(): string {
-  return ExpoSensorFusionModule.hello();
-}
+export * as default from './events/rotationUpdates';

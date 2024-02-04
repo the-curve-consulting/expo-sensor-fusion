@@ -1,64 +1,48 @@
 package expo.modules.sensorfusion
 
-import android.app.Activity
 import android.content.Context.SENSOR_SERVICE
-import android.hardware.Sensor
 import android.hardware.SensorManager
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
-import expo.modules.sensorfusion.support.RotationVectorEventListener
-
-private const val EventName = "rotationVectorDidUpdate"
+import expo.modules.sensorfusion.services.RotationUpdatesService
 
 class ExpoSensorFusionModule() : Module() {
-  var sensorManager: SensorManager? = null;
-  var rotationEventListener: RotationVectorEventListener? = null;
+  private lateinit var rotationUpdatesService: RotationUpdatesService;
 
-
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
   override fun definition() = ModuleDefinition {
     // Sets the name of the module that JavaScript code will use to refer to the module.
     // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
     // The module will be accessible from `requireNativeModule('ExpoSensorFusion')` in JavaScript.
     Name("ExpoSensorFusion")
 
-    Events(EventName)
+    Events(RotationUpdatesService.EVENT_NAME)
 
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      "Hello world! 👋"
+    // Defines module's lifecycle listener that is called right after module initialization.
+    // If you need to set up something when the module gets initialized, use this instead of module's class initializer.
+    OnCreate {
+      val sensorManager = appContext.reactContext?.getSystemService(SENSOR_SERVICE) as SensorManager;
+
+      rotationUpdatesService = RotationUpdatesService(sensorManager, ::sendEvent);
     }
 
-    Function("startObserving") {
-      sensorManager = appContext.reactContext?.getSystemService(SENSOR_SERVICE) as SensorManager
-      rotationEventListener = RotationVectorEventListener(EventName, ::sendEvent)
-
-      val rotationVectorSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
-
-      if (rotationVectorSensor !== null) {
-        sensorManager?.registerListener(
-          rotationEventListener,
-          rotationVectorSensor,
-          SensorManager.SENSOR_DELAY_FASTEST
-        )
-      }
+    Function("startObservingRotationUpdates") {
+      rotationUpdatesService.startObservingRotationUpdates()
     }
 
-    Function("stopObserving") {
-      sensorManager?.unregisterListener(rotationEventListener);
+    Function("stopObservingRotationUpdates") {
+      rotationUpdatesService.stopObservingRotationUpdates()
     }
-  }
 
-  /**
-   * -----------------------
-   * Private utility methods
-   * -----------------------
-   */
+    OnActivityEntersBackground {
+      rotationUpdatesService.stopObservingRotationUpdates()
+    }
 
-  private fun getActivity(): Activity {
-    val activity = appContext.activityProvider?.currentActivity
-    return activity!!
+    OnActivityEntersForeground {
+      rotationUpdatesService.startObservingRotationUpdates()
+    }
+
+    OnDestroy {
+      rotationUpdatesService.stopObservingRotationUpdates()
+    }
   }
 }

@@ -1,20 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { CameraController } from './src/CameraController';
+import { CubeFace } from './src/Plane';
+import { Scene } from './src/Scene';
 
-import * as ExpoSensorFusion from 'expo-sensor-fusion';
-
-export default function App() {
+export const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>{ExpoSensorFusion.hello()}</Text>
-    </View>
-  );
-}
+    <Scene>
+      <CameraController />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+      <CubeFace side="front" color="red" dimension={30} />
+      <CubeFace side="back" color="green" dimension={30} />
+      <CubeFace side="left" color="blue" dimension={30} />
+      <CubeFace side="right" color="yellow" dimension={30} />
+      <CubeFace side="top" color="magenta" dimension={30} />
+      <CubeFace side="bottom" color="cyan" dimension={30} />
+    </Scene>
+  );
+};
+
+export default App;

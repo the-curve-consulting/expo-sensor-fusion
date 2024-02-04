@@ -8,9 +8,13 @@
     "ios": "expo run:ios --device"
   },
   "dependencies": {
+    "@react-three/fiber": "^8.15.16",
+    "@types/three": "^0.161.2",
     "expo": "~50.0.5",
     "react": "18.2.0",
-    "react-native": "0.73.2"
+    "react-native": "0.73.2",
+    "three": "^0.161.0",
+    "expo-gl": "~13.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

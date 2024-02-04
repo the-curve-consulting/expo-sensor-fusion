@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "expo-sensor-fusion",
+    "slug": "expo-sensor-fusion",
+    "version": "0.1.0",
+    "description": "My new module",
+    "sdkVersion": "50.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "android": {
+      "package": "com.kishannareshpal.exposensorfusion"
+    },
+    "ios": {
+      "bundleIdentifier": "com.kishannareshpal.exposensorfusion"
+    }
+  }
+}

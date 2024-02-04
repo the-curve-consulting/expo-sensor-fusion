@@ -6,14 +6,14 @@ module.exports = async (env, argv) => {
     {
       ...env,
       babel: {
-        dangerouslyAddModulePathsToTranspile: ['expo-sensor-fusion'],
-      },
+        dangerouslyAddModulePathsToTranspile: ['expo-sensor-fusion']
+      }
     },
     argv
   );
   config.resolve.modules = [
-    path.resolve(__dirname, './node_modules'),
-    path.resolve(__dirname, '../node_modules'),
+    path.resolve(global.__dirname, './node_modules'),
+    path.resolve(global.__dirname, '../node_modules')
   ];
 
   return config;

@@ -4,11 +4,11 @@
   "description": "My new module",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "build": "expo-module build",
-    "clean": "expo-module clean",
-    "lint": "expo-module lint",
-    "test": "expo-module test",
+    "lint": "expo-module lint src example",
+    "test": "expo-module test --ignoreProjects=Web --ignoreProjects=Node --setupFilesAfterEnv=\"<rootDir>/src/__tests__/setupTests.ts\"",
     "prepare": "expo-module prepare",
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
@@ -23,22 +23,36 @@
     "expo-sensor-fusion",
     "ExpoSensorFusion"
   ],
-  "repository": "https://github.com/kishannareshpal/expo-sensor-fusion",
+  "repository": "https://github.com/the-curve-consulting/expo-sensor-fusion",
   "bugs": {
-    "url": "https://github.com/kishannareshpal/expo-sensor-fusion/issues"
+    "url": "https://github.com/the-curve-consulting/expo-sensor-fusion/issues"
   },
   "author": "Kishan Jadav <kishan_jadav@hotmail.com> (https://github.com/kishannareshpal)",
   "license": "MIT",
-  "homepage": "https://github.com/kishannareshpal/expo-sensor-fusion#readme",
-  "dependencies": {},
+  "homepage": "https://github.com/the-curve-consulting/expo-sensor-fusion#readme",
+  "dependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  },
   "devDependencies": {
     "@types/react": "^18.0.25",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "expo-module-scripts": "^3.4.0",
-    "expo-modules-core": "^1.11.8"
+    "expo-modules-core": "^1.11.8",
+    "prettier": "^3.2.4",
+    "react-native-web": "^0.19.10",
+    "ts-jest": "^29.1.2"
   },
   "peerDependencies": {
     "expo": "*",
     "react": "*",
     "react-native": "*"
+  },
+  "jest": {
+    "preset": "expo-module-scripts"
   }
 }
