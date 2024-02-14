@@ -27,14 +27,6 @@ public class ExpoSensorFusionModule: Module {
       rotationUpdatesService.stopObservingRotationUpdates()
     }
 
-    OnAppEntersBackground {
-      rotationUpdatesService.stopObservingRotationUpdates()
-    }
-
-    OnAppEntersForeground {
-      try? rotationUpdatesService.startObservingRotationUpdates()
-    }
-
     OnDestroy {
       rotationUpdatesService.stopObservingRotationUpdates()
     }

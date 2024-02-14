@@ -22,8 +22,7 @@ class RotationUpdatesService {
   static let EVENT_NAME = "rotationUpdated"
   
   init(eventCallback: @escaping EventCallback) {
-    self.motionManager.deviceMotionUpdateInterval = 0.2 // 5 Hz
-    
+    self.motionManager.deviceMotionUpdateInterval = 0.02 // 50 Hz
     self.eventCallback = eventCallback;
   }
 
