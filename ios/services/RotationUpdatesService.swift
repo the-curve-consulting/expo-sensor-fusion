@@ -18,7 +18,6 @@ class RotationUpdatesService {
   private let operationQueue: OperationQueue = OperationQueue()
   
   private let eventCallback: EventCallback
-  private var eventData: Matrix = Matrix()
   
   static let EVENT_NAME = "rotationUpdated"
   
@@ -33,25 +32,28 @@ class RotationUpdatesService {
       throw RotationUpdatesServiceError.sensorNotAvailable
     }
           
-    self.motionManager.startDeviceMotionUpdates(to: operationQueue) { [weak self] (motionEvent, error) in
+    self.motionManager.startDeviceMotionUpdates(to: operationQueue) { (motionEvent, error) in
       guard let motionEvent = motionEvent else {
-        // Motion not ready
+        // invalid event
         return
       }
       
       let rotationMatrix = motionEvent.attitude.rotationMatrix
-      
-      self?.eventData.m11 = rotationMatrix.m11
-      self?.eventData.m12 = rotationMatrix.m12
-      self?.eventData.m13 = rotationMatrix.m13
-      self?.eventData.m21 = rotationMatrix.m21
-      self?.eventData.m22 = rotationMatrix.m22
-      self?.eventData.m23 = rotationMatrix.m23
-      self?.eventData.m31 = rotationMatrix.m31
-      self?.eventData.m32 = rotationMatrix.m32
-      self?.eventData.m33 = rotationMatrix.m33
-      
-      self?.eventCallback(RotationUpdatesService.EVENT_NAME, self!.eventData.dictionary)
+      self.eventCallback(RotationUpdatesService.EVENT_NAME, [
+        "rotationMatrix": [
+          "m11": rotationMatrix.m11,
+          "m12": rotationMatrix.m12,
+          "m13": rotationMatrix.m13,
+
+          "m21": rotationMatrix.m21,
+          "m22": rotationMatrix.m22,
+          "m23": rotationMatrix.m23,
+
+          "m31": rotationMatrix.m31,
+          "m32": rotationMatrix.m32,
+          "m33": rotationMatrix.m33,
+        ]
+      ])
     }
   }
   

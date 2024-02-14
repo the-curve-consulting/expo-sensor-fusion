@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { DoubleSide, Euler, Mesh, Vector3 } from 'three';
+import { DoubleSide, Mesh } from 'three';
 
 const NINETY_DEG = Math.PI / 2;
 
@@ -17,7 +17,7 @@ export const CubeFace = forwardRef<Mesh, CubeFaceProps>(
       <mesh
         ref={ref}
         position={getPositionForCubeFaceSide(side, dimension)}
-        rotation={getRotationForCubeFaceSide(side, dimension)}
+        rotation={getRotationForCubeFaceSide(side)}
       >
         <planeGeometry args={[dimension, dimension]} />
         <meshStandardMaterial color="green" side={DoubleSide} />
@@ -52,8 +52,7 @@ const getPositionForCubeFaceSide = (
 };
 
 const getRotationForCubeFaceSide = (
-  side: CubeFaceSide,
-  dimension: number
+  side: CubeFaceSide
 ): [number, number, number] | undefined => {
   switch (side) {
     case 'front':

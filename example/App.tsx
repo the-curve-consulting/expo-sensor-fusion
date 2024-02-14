@@ -1,20 +1,33 @@
-import { CameraController } from './src/CameraController';
-import { CubeFace } from './src/Plane';
-import { Scene } from './src/Scene';
+import { useState } from 'react';
+import { Text } from 'react-native';
+
+import { CubeMapScreen } from './src/screens/CubeMapScreen';
+import { ExpoSensorFusionDebugScreen } from './src/screens/ExpoSensorFusionDebugScreen';
+import { HomeScreen } from './src/screens/HomeScreen';
+import { AppScreen } from './src/screens/types';
 
 export const App = () => {
-  return (
-    <Scene>
-      <CameraController />
+  const [screen, setScreen] = useState<AppScreen>('HomeScreen');
 
-      <CubeFace side="front" color="red" dimension={30} />
-      <CubeFace side="back" color="green" dimension={30} />
-      <CubeFace side="left" color="blue" dimension={30} />
-      <CubeFace side="right" color="yellow" dimension={30} />
-      <CubeFace side="top" color="magenta" dimension={30} />
-      <CubeFace side="bottom" color="cyan" dimension={30} />
-    </Scene>
-  );
+  const navigateTo = (screen: AppScreen) => {
+    setScreen(screen);
+  };
+
+  switch (screen) {
+    case 'HomeScreen':
+      return <HomeScreen navigateTo={navigateTo} />;
+
+    case 'CubeMapScreen':
+      return <CubeMapScreen onBack={() => setScreen('HomeScreen')} />;
+
+    case 'ExpoSensorFusionDebugScreen':
+      return (
+        <ExpoSensorFusionDebugScreen onBack={() => setScreen('HomeScreen')} />
+      );
+
+    default:
+      return <Text>No screen available. Restart the app.</Text>;
+  }
 };
 
 export default App;

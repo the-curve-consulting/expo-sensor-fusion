@@ -80,6 +80,10 @@ android {
       withSourcesJar()
     }
   }
+
+  testOptions {
+    unitTests.returnDefaultValues = true
+  }
 }
 
 repositories {
@@ -89,4 +93,9 @@ repositories {
 dependencies {
   implementation project(':expo-modules-core')
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${getKotlinVersion()}"
+
+  testImplementation "junit:junit:4.13.2"
+  testImplementation "androidx.test:core:1.5.0"
+  testImplementation "org.mockito:mockito-core:5.10.0"
+  testImplementation "org.mockito.kotlin:mockito-kotlin:5.2.1"
 }

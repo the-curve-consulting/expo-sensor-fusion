@@ -12,9 +12,9 @@ public class ExpoSensorFusionModule: Module {
     /// Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
     /// The module will be accessible from `requireNativeModule('ExpoSensorFusion')` in JavaScript.
     Name("ExpoSensorFusion")
-    
+
     Events(RotationUpdatesService.EVENT_NAME)
-    
+
     OnCreate {
       rotationUpdatesService = RotationUpdatesService(eventCallback: self.sendEvent)
     }
@@ -22,11 +22,11 @@ public class ExpoSensorFusionModule: Module {
     Function("startObservingRotationUpdates") {
       try rotationUpdatesService.startObservingRotationUpdates()
     }
-    
+
     Function("stopObservingRotationUpdates") {
       rotationUpdatesService.stopObservingRotationUpdates()
     }
-    
+
     OnAppEntersBackground {
       rotationUpdatesService.stopObservingRotationUpdates()
     }
@@ -34,7 +34,7 @@ public class ExpoSensorFusionModule: Module {
     OnAppEntersForeground {
       try? rotationUpdatesService.startObservingRotationUpdates()
     }
-    
+
     OnDestroy {
       rotationUpdatesService.stopObservingRotationUpdates()
     }
