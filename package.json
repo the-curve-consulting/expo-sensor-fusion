@@ -1,5 +1,5 @@
 {
-  "name": "expo-sensor-fusion",
+  "name": "@the-curve-consulting/expo-sensor-fusion",
   "version": "0.1.0",
   "description": "My new module",
   "main": "build/index.js",
@@ -23,7 +23,10 @@
     "expo-sensor-fusion",
     "ExpoSensorFusion"
   ],
-  "repository": "https://github.com/the-curve-consulting/expo-sensor-fusion",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-curve-consulting/expo-sensor-fusion.git"
+  },
   "bugs": {
     "url": "https://github.com/the-curve-consulting/expo-sensor-fusion/issues"
   },
