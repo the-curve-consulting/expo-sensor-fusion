@@ -6,7 +6,9 @@ module.exports = async (env, argv) => {
     {
       ...env,
       babel: {
-        dangerouslyAddModulePathsToTranspile: ['expo-sensor-fusion']
+        dangerouslyAddModulePathsToTranspile: [
+          '@the-curve-consulting/expo-sensor-fusion'
+        ]
       }
     },
     argv

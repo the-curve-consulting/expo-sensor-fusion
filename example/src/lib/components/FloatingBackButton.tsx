@@ -11,7 +11,7 @@ export const FloatingBackButton = ({ onBack }: BackButtonProps) => {
     <View
       style={{
         position: 'absolute',
-        top: 24,
+        top: 48,
         left: 24
       }}
     >

@@ -1,6 +1,6 @@
-import { ExpoSensorFusion } from 'expo-sensor-fusion';
-import { useEffect, useRef, useState } from 'react';
-import { SafeAreaView, Text, TextInput } from 'react-native';
+import { ExpoSensorFusion } from '@the-curve-consulting/expo-sensor-fusion';
+import { useEffect, useRef } from 'react';
+import { SafeAreaView, Text, View } from 'react-native';
 import { Matrix3 } from 'three';
 
 import { FloatingBackButton } from '../lib/components/FloatingBackButton';
@@ -35,17 +35,17 @@ export const ExpoSensorFusionDebugScreen = ({
           matrix.m13, matrix.m23, matrix.m33, // eslint-disable-line prettier/prettier
         );
 
-        // textRef.current?.setText(
-        //   `1,1:\t\t${matrix.m11}\n` +     // eslint-disable-line
-        //   `1,2:\t\t${matrix.m12}\n` +     // eslint-disable-line
-        //   `1,3:\t\t${matrix.m13}\n\n` +     // eslint-disable-line
-        //   `2,1:\t\t${matrix.m21}\n` + // eslint-disable-line
-        //   `2,2:\t\t${matrix.m22}\n` +     // eslint-disable-line
-        //   `2,3:\t\t${matrix.m23}\n\n` +     // eslint-disable-line
-        //   `3,1:\t\t${matrix.m31}\n` +     // eslint-disable-line
-        //   `3,2:\t\t${matrix.m32}\n` +     // eslint-disable-line
-        //   `3,3:\t\t${matrix.m33}`           // eslint-disable-line
-        // );
+        textRef.current?.setText(
+          `1,1:\t\t${matrix.m11}\n` +     // eslint-disable-line
+          `1,2:\t\t${matrix.m12}\n` +     // eslint-disable-line
+          `1,3:\t\t${matrix.m13}\n\n` +   // eslint-disable-line
+          `2,1:\t\t${matrix.m21}\n` +     // eslint-disable-line
+          `2,2:\t\t${matrix.m22}\n` +     // eslint-disable-line
+          `2,3:\t\t${matrix.m23}\n\n` +   // eslint-disable-line
+          `3,1:\t\t${matrix.m31}\n` +     // eslint-disable-line
+          `3,2:\t\t${matrix.m32}\n` +     // eslint-disable-line
+          `3,3:\t\t${matrix.m33}`         // eslint-disable-line
+        );
       });
 
     return () => {
@@ -57,28 +57,25 @@ export const ExpoSensorFusionDebugScreen = ({
     <SafeAreaView
       style={{
         flex: 1,
-        justifyContent: 'center',
-        padding: 24
+        justifyContent: 'center'
       }}
     >
       <FloatingBackButton onBack={onBack} />
 
-      <ImperativeTextWithLabel
-        ref={textRef}
-        label="Rotation matrix:"
-        text="Waiting for data..."
-      />
+      <View style={{ padding: 24 }}>
+        <ImperativeTextWithLabel ref={textRef} label="Rotation matrix:" />
 
-      <Text
-        style={{
-          textAlign: 'center',
-          marginTop: 12,
-          color: 'grey',
-          fontSize: 13
-        }}
-      >
-        Rotate your device (and/or yourself) around to see the values change.
-      </Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            marginTop: 12,
+            color: 'grey',
+            fontSize: 13
+          }}
+        >
+          Rotate your device (and/or yourself) around to see the values change.
+        </Text>
+      </View>
     </SafeAreaView>
   );
 };

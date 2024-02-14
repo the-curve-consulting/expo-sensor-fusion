@@ -2,7 +2,7 @@ import { Subscription } from 'expo-modules-core';
 
 /**
  * Enhances a {@link Subscription} object with additional {@link cleanupCallback} function to run after the
- * {@link subscription.remove} operation.
+ * {@link Subscription#remove} operation.
  *
  * @param subscription - The event emitter subscription reference.
  * @param cleanupCallback - Additional callback after {@link Subscription#remove} is called on {@link subscription}.

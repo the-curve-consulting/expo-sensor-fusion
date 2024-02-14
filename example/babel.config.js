@@ -10,10 +10,15 @@ module.exports = function (api) {
           extensions: ['.tsx', '.ts', '.js', '.json'],
           alias: {
             // For development, we want to alias the library to the source
-            'expo-sensor-fusion': path.join(__dirname, '..', 'src', 'index.ts'),
-          },
-        },
-      ],
-    ],
+            '@the-curve-consulting/expo-sensor-fusion': path.join(
+              __dirname,
+              '..',
+              'src',
+              'index.ts'
+            )
+          }
+        }
+      ]
+    ]
   };
 };

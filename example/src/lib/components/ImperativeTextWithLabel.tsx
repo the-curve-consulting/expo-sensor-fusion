@@ -3,7 +3,6 @@ import { Text, TextInput, View } from 'react-native';
 
 export type ImperativeTextWithLabelProps = {
   label: string;
-  text: string;
 };
 
 export type ImperativeTextWithLabelRef = {
@@ -36,7 +35,7 @@ export type ImperativeTextWithLabelRef = {
 export const ImperativeTextWithLabel = forwardRef<
   ImperativeTextWithLabelRef,
   ImperativeTextWithLabelProps
->(({ label, text }, ref) => {
+>(({ label }, ref) => {
   const textInputRef = useRef<TextInput>(null);
 
   useImperativeHandle(
@@ -64,7 +63,6 @@ export const ImperativeTextWithLabel = forwardRef<
       <TextInput
         ref={textInputRef}
         style={{ color: '#0A0908' }}
-        value={text}
         editable={false}
         pointerEvents="none"
         multiline
