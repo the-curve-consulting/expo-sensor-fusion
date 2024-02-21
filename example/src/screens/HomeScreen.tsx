@@ -1,4 +1,6 @@
-import { SafeAreaView, Text } from 'react-native';
+import { ExpoSensorFusion } from '@the-curve-consulting/expo-sensor-fusion';
+import { useEffect, useState } from 'react';
+import { SafeAreaView, Text, View } from 'react-native';
 
 import type { AppScreen } from './types';
 import { Button } from '../lib/components/Button';
@@ -10,39 +12,76 @@ type HomeScreenProps = {
 };
 
 export const HomeScreen = ({ navigateTo }: HomeScreenProps) => {
+  const [sensorAvailable, setSensorAvailable] = useState(false);
+
+  useEffect(() => {
+    setSensorAvailable(ExpoSensorFusion.isSensorAvailable());
+  }, []);
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: '#FDF0D5',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 24
+        backgroundColor: '#FDF0D5'
       }}
     >
-      <Text
+      <View
         style={{
-          fontWeight: 'bold',
-          fontSize: 42,
-          marginBottom: 48,
-          paddingHorizontal: 24
+          flex: 1,
+          padding: 24,
+          justifyContent: 'center',
+          gap: 12,
+          alignItems: 'center'
         }}
-        adjustsFontSizeToFit
-        numberOfLines={1}
       >
-        ExpoSensorFusion
-      </Text>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 42,
+            marginBottom: 24,
+            paddingHorizontal: 24
+          }}
+          adjustsFontSizeToFit
+          numberOfLines={1}
+        >
+          ExpoSensorFusion
+        </Text>
 
-      <Button
-        style={{ marginBottom: 12 }}
-        onPress={() => navigateTo('CubeMapScreen')}
-      >
-        <Text style={{ color: '#FBB13C' }}>Example:</Text> Cubemap
-      </Button>
+        {!sensorAvailable ? (
+          <View
+            style={{
+              borderRadius: 12,
+              backgroundColor: '#f34f4f',
+              padding: 12,
+              marginBottom: 24
+            }}
+          >
+            <Text
+              style={{
+                color: '#ffffff',
+                fontWeight: 'bold'
+              }}
+            >
+              This device does not support the rotations sensors required by
+              this application.
+            </Text>
+          </View>
+        ) : null}
 
-      <Button onPress={() => navigateTo('ExpoSensorFusionDebugScreen')}>
-        <Text style={{ color: '#FBB13C' }}>Debug:</Text> Raw values values
-      </Button>
+        <Button
+          disabled={!sensorAvailable}
+          onPress={() => navigateTo('CubeMapScreen')}
+        >
+          <Text style={{ color: '#FBB13C' }}>Example:</Text> Cubemap
+        </Button>
+
+        <Button
+          disabled={!sensorAvailable}
+          onPress={() => navigateTo('ExpoSensorFusionDebugScreen')}
+        >
+          <Text style={{ color: '#FBB13C' }}>Debug:</Text> Raw sensor values
+        </Button>
+      </View>
     </SafeAreaView>
   );
 };

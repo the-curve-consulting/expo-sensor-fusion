@@ -26,6 +26,10 @@ public class ExpoSensorFusionModule: Module {
     Function("stopObservingRotationUpdates") {
       rotationUpdatesService.stopObservingRotationUpdates()
     }
+    
+    Function("isSensorAvailable") {
+      rotationUpdatesService.isSensorAvailable()
+    }
 
     OnDestroy {
       rotationUpdatesService.stopObservingRotationUpdates()

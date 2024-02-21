@@ -4,6 +4,7 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
 import expo.modules.sensorfusion.libs.RotationUpdateEventListener
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.any
@@ -42,7 +43,7 @@ class RotationUpdatesServiceTest {
   }
 
   @Test
-  fun `#start registers listener`() {
+  fun `#startObservingRotationUpdates registers listener`() {
     // When
     subject.startObservingRotationUpdates()
 
@@ -55,7 +56,7 @@ class RotationUpdatesServiceTest {
   }
 
   @Test
-  fun `#stop unregisters listener`() {
+  fun `#stopObservingRotationUpdates unregisters listener`() {
     // Given
     subject.startObservingRotationUpdates()
 
@@ -66,5 +67,35 @@ class RotationUpdatesServiceTest {
     verify(mockSensorManager).unregisterListener(
       any(RotationUpdateEventListener::class.java)
     )
+  }
+
+  @Test
+  fun `#isSensorAvailable property returns true when sensor is available`() {
+    // Given that the sensor manager returns a valid sensor for `Sensor.TYPE_ROTATION_VECTOR`,
+    // as defined in this test class's #setup function.
+
+    // When
+    val result = subject.isSensorAvailable
+
+    // Then
+    Assert.assertTrue(result);
+  }
+
+  @Test
+  fun `#isSensorAvailable property returns false when sensor is not available`() {
+    // Given
+    `when`(
+      mockSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
+    ).thenReturn(null)
+
+    // Modify the SUT to use the sensor manager that does not return the expected sensor,
+    // simulating a device without that sensor.
+    subject = RotationUpdatesService(mockSensorManager, mockEventCallback)
+
+    // When
+    val result = subject.isSensorAvailable
+
+    // Then
+    Assert.assertFalse(result);
   }
 }
