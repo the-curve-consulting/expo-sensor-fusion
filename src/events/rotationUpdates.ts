@@ -12,6 +12,15 @@ export type RotationUpdateEvent = {
 };
 
 /**
+ * Checks whether or not the rotation sensor is available on the current device.
+ *
+ * @returns `true` if the rotation sensor is available, otherwise `false`.
+ */
+export const isSensorAvailable = (): boolean => {
+  return ExpoSensorFusionModule.isSensorAvailable();
+};
+
+/**
  * Adds a listener for rotation update events.
  *
  * @param listener - The event listener function.

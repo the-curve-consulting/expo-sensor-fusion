@@ -44,7 +44,7 @@ class RotationUpdatesServiceTest {
   @Test
   fun `#start registers listener`() {
     // When
-    subject.start()
+    subject.startObservingRotationUpdates()
 
     // Then
     verify(mockSensorManager).registerListener(
@@ -57,10 +57,10 @@ class RotationUpdatesServiceTest {
   @Test
   fun `#stop unregisters listener`() {
     // Given
-    subject.start()
+    subject.startObservingRotationUpdates()
 
     // When
-    subject.stop()
+    subject.stopObservingRotationUpdates()
 
     // Then
     verify(mockSensorManager).unregisterListener(

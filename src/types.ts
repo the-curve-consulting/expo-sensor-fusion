@@ -1,3 +1,27 @@
+import { NativeModule } from 'react-native';
+
+export interface IExpoSensorFusion extends NativeModule {
+  /**
+   * Checks whether or not the rotation sensor is available on the current device.
+   *
+   * @returns `true` if the rotation sensor is available, otherwise `false`.
+   */
+  isSensorAvailable: () => boolean;
+
+  /**
+   * Begin listening for rotation updates.
+   */
+  startObservingRotationUpdates: () => void;
+
+  /**
+   * Stop listening for rotation updates.
+   */
+  stopObservingRotationUpdates: () => void;
+}
+
+/**
+ * Listener function for {@link E} update events.
+ */
 export type EventListener<E> = (event: E) => void;
 
 /**

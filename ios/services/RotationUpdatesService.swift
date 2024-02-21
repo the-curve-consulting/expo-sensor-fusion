@@ -25,6 +25,10 @@ class RotationUpdatesService {
     self.motionManager.deviceMotionUpdateInterval = 0.02 // 50 Hz
     self.eventCallback = eventCallback;
   }
+  
+  func isSensorAvailable() -> Bool {
+    return self.motionManager.isDeviceMotionAvailable;
+  }
 
   func startObservingRotationUpdates() throws {
     guard self.motionManager.isDeviceMotionAvailable else {

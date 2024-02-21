@@ -10,30 +10,37 @@ class RotationUpdatesService(
   private val sensorManager: SensorManager,
   private val eventCallback: (name: String, body: Bundle?) -> Unit
 ) {
-  private var rotationVectorSensor: Sensor
+  private var rotationVectorSensor: Sensor? = null;
 
   private var rotationUpdateEventListener: RotationUpdateEventListener? = null
 
   private var observing: Boolean = false
 
+  var isSensorAvailable: Boolean = false;
+
   init {
     val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
-    if (sensor === null) {
-      throw Error("Could not get the 'TYPE_ROTATION_VECTOR' sensor on this device.")
-    }
+    this.isSensorAvailable = sensor !== null;
 
-    this.rotationVectorSensor = sensor
-    this.rotationUpdateEventListener = RotationUpdateEventListener(
-      EVENT_NAME,
-      RotationUpdateSensorEventProcessor(),
-      this.eventCallback)
+    if (this.isSensorAvailable) {
+      this.rotationVectorSensor = sensor;
+      this.rotationUpdateEventListener = RotationUpdateEventListener(
+        EVENT_NAME,
+        RotationUpdateSensorEventProcessor(),
+        this.eventCallback)
+    }
   }
 
   companion object {
     const val EVENT_NAME = "rotationUpdated"
   }
 
-  fun start() {
+  fun startObservingRotationUpdates() {
+    if (!this.isSensorAvailable || this.observing) {
+      // Sensor is not available or it's already being observed.
+      return;
+    }
+
     this.sensorManager.registerListener(
       this.rotationUpdateEventListener,
       this.rotationVectorSensor,
@@ -42,7 +49,7 @@ class RotationUpdatesService(
     this.observing = true;
   }
 
-  fun stop() {
+  fun stopObservingRotationUpdates() {
     this.sensorManager.unregisterListener(rotationUpdateEventListener)
     this.observing = false
   }

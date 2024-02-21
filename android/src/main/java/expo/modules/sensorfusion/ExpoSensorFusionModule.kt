@@ -26,15 +26,19 @@ class ExpoSensorFusionModule() : Module() {
     }
 
     Function("startObservingRotationUpdates") {
-      rotationUpdatesService.start()
+      rotationUpdatesService.startObservingRotationUpdates()
     }
 
     Function("stopObservingRotationUpdates") {
-      rotationUpdatesService.stop()
+      rotationUpdatesService.stopObservingRotationUpdates()
+    }
+
+    Function("isSensorAvailable") {
+      rotationUpdatesService.isSensorAvailable;
     }
 
     OnDestroy {
-      rotationUpdatesService.stop()
+      rotationUpdatesService.stopObservingRotationUpdates()
     }
   }
 }
