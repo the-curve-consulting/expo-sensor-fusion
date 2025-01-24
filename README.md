@@ -1,6 +1,6 @@
 # @the-curve-consulting/expo-sensor-fusion
 
-An NPM package provides native device rotation sensor data for your expo React Native application.
+An NPM package providing native device rotation sensor data for your expo React Native application.
 
 > [!IMPORTANT]
 >
