@@ -1,9 +1,7 @@
-import { Subscription } from 'expo-modules-core';
-
 import ExpoSensorFusionModule from '../ExpoSensorFusionModule';
 import { cachedEventEmitter } from '../libs/cachedEventEmitter';
 import { enhanceSubscriptionWithCleanup } from '../libs/enhanceSubscriptionWithCleanup';
-import { EventListener, RotationMatrix } from '../types';
+import { EventListener, RotationMatrix, Subscription } from '../types';
 
 const ROTATION_UPDATED_EVENT_NAME = 'rotationUpdated';
 

@@ -38,3 +38,10 @@ export type RotationMatrix = {
   m32: number;
   m33: number;
 };
+
+export type Subscription = {
+  /**
+   * A method to unsubscribe the listener.
+   */
+  remove: () => void;
+};

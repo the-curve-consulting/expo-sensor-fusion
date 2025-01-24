@@ -1,6 +1,5 @@
-import { Subscription } from 'expo-modules-core';
-
 import { enhanceSubscriptionWithCleanup } from '../../libs/enhanceSubscriptionWithCleanup';
+import { Subscription } from '../../types';
 
 describe('enhanceSubscriptionWithCleanup', () => {
   const fakeSubscriptionRemoveFnSpy = jest.fn();
