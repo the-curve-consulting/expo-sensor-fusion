@@ -61,24 +61,18 @@ npm run android
 
 ### Publish a new version to the registry
 
-1. Bump the package version:
+> [!NOTE]
+>
+> This package follows semantic versioning with the format: `major.minor.patch`.
+> - Major version: Increment when making incompatible API changes.
+> - Minor version: Increment when adding new functionality in a backward-compatible way.
+> - Patch version: Increment when fixing bugs in a backward-compatible manner.
 
-```bash
-# This package uses the semantic versioning system: major.minor.patch
-#
-# Use one of the following commands to bump the version of this package
-# depending on your change type:
-npm version major # to update a major version (when you make incompatible API changes).
-npm version minor # to update the minor version (when you add functionality in a backward compatible manner).
-npm version patch # to update the patch version (when you make backward compatible bug fixes to existing functionalities).
-```
-
-2. Publish it:
-
-```bash
-nvm install && nvm use
-npm install
-NODE_AUTH_TOKEN=YOUR_GH_TOKEN_HERE npm publish
-```
-
-3. Thank you for contributing!
+1. Push your changes to the `main` branch.
+2. Navigate to [Create a New Release](https://github.com/the-curve-consulting/expo-sensor-fusion/releases/new)
+3. Create a new tag using the semantic versioning format, prefixed with `v` (e.g., `E.g.: v2.3.0`).
+4. Use the same name as the tag for the release title.
+5. Click <kbd>Generate release notes</kbd>, and/or edit the description to detail the changes.
+6. Click the green <kbd>Publish release</kbd> button.
+7. A GitHub action will automatically run to publish the new version of the package to the registry.
+   - Monitor the status at [the-curve-consulting/expo-sensor-fusion/actions](https://github.com/the-curve-consulting/expo-sensor-fusion/actions)
