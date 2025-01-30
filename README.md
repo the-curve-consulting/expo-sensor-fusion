@@ -43,19 +43,25 @@ NODE_AUTH_TOKEN=YOUR_GH_TOKEN_HERE npm install @the-curve-consulting/expo-sensor
 
 - Ensure you're running the correct code version in your current terminal session: `nvm install && nvm use`
 - Install all node dependencies: `npm install`
-- To edit the native code, only edit them in `./example/android` or `./example/ios`.
-  - You can edit the native code using any IDE of your choice, but if you prefer to edit the native code using the default native IDE use the following commands:
-    - Open Xcode to edit the iOS native code by running: `npm run open:xcode`
-    - Open Android Studio to edit the Android native code by running: `npm run open:androistudio`
+- To edit the native code, ONLY edit them at `<root>/android` or `<root>/ios`:
+  - You can edit the native code using any IDE of your choice and on any machine. However it is recommended to use the default native IDE for each platform:
+    - Open Xcode to edit the iOS native code by running the following from the root of this repo: `npm run open:xcode`
+    - Open Android Studio to edit the Android native code by running from the root of this repo: `npm run open:androistudio`
 
 > [!IMPORTANT]
 >
-> Never edit files within `<root>/android` nor `<root>/ios`.
+> You must never have to manually edit files within `./example/android` nor `./example/ios`. These are updated / generated automatically
+> everytime you run `npm run ios|android`.
 
-- You can checkout the package changes during development by running the sample expo app that is embedded into this project within `/example`:
+- You can preview the package changes during development by running the sample expo app that is embedded into this project within `/example`:
 
 ```bash
+cd example
+
+# Start an iOS simulator with an example app (expo development client) where this package is installed (requires macOS)
 npm run ios
+
+# Start an Android emulator and installs the example app (expo development client) where this package is installed.
 npm run android
 ```
 
