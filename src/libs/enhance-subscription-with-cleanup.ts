@@ -1,4 +1,4 @@
-import { Subscription } from "../types";
+import { Subscription } from '../types';
 
 /**
  * Enhances a {@link Subscription} object with additional {@link cleanupCallback} function to run after the

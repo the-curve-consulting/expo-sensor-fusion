@@ -41,7 +41,7 @@ describe('rotation-updated', () => {
       ).toHaveBeenCalledTimes(1);
     });
 
-    it('receives the correct "rotationUpdate" events when being listened to and can unsubscribe', () => {
+    it('receives the correct "onRotationUpdated" events when being listened to and can unsubscribe', () => {
       const subscription = addRotationUpdateListener(mockListener);
 
       // Does not get called when no event is emitted.

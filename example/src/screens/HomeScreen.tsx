@@ -2,8 +2,8 @@ import { ExpoSensorFusion } from '@the-curve-consulting/expo-sensor-fusion';
 import { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 
-import { Button } from '../lib/components/Button';
 import type { AppScreen } from './types';
+import { Button } from '../lib/components/Button';
 
 export type HomeScreenName = 'HomeScreen';
 

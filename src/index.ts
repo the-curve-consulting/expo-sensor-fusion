@@ -1,3 +1,2 @@
-export { default as ExpoSensorFusion } from './ExpoSensorFusionModule';
-
+export * as ExpoSensorFusion from './events/rotation-updated';
 export * from './types';

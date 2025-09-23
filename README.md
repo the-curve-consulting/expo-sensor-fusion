@@ -1,6 +1,15 @@
 # @the-curve-consulting/expo-sensor-fusion
 
-An NPM package providing native device rotation sensor data for your expo React Native application.
+A react native library for reading native device rotation sensor data.
+
+| Home | Cubemap | Sensor values debug |
+|--------|--------|--------|
+| <img src="./docs/images/home.png" width="200px" /> | <img src="./docs/images/cubemap.png" width="200px" /> | <img src="./docs/images/raw-sensor-values.png" width="200px" /> |
+
+| Demo |
+|--------|
+| <video src="./docs/videos/demo.MP4" height="400px" /> /> |
+
 
 > [!IMPORTANT]
 >

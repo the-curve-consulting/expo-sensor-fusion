@@ -1,32 +1,34 @@
 {
-  "name": "expo-sensor-fusion-example",
+  "name": "@the-curve-consulting/expo-sensor-fusion-example",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "index.ts",
   "scripts": {
-    "prebuild:clean": "npx expo prebuild --clean",
+    "prebuild": "npx expo prebuild",
+    "prebuild:clean": "npm run prebuild -- --clean",
     "start": "expo start",
-    "android": "expo run:android --device",
-    "ios": "expo run:ios --device"
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@react-three/fiber": "^9.3.0",
-    "expo": "^54.0.0",
-    "expo-gl": "~16.0.7",
+    "expo": "~54.0.10",
+    "expo-gl": "^16.0.7",
+    "expo-status-bar": "~3.0.8",
     "react": "19.1.0",
     "react-native": "0.81.4",
     "three": "^0.180.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.4",
-    "@types/react": "~19.1.13",
+    "@babel/core": "^7.26.0",
+    "@types/react": "~19.1.0",
     "@types/three": "^0.180.0",
     "babel-plugin-module-resolver": "^5.0.2",
-    "typescript": "^5.9.2"
+    "typescript": "~5.9.2"
   },
-  "private": true,
   "expo": {
     "autolinking": {
       "nativeModulesDir": ".."
     }
-  }
+  },
+  "private": true
 }
