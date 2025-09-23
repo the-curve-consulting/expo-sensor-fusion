@@ -1,6 +1,15 @@
 # @the-curve-consulting/expo-sensor-fusion
 
-An NPM package providing native device rotation sensor data for your expo React Native application.
+A react native library for reading native device rotation sensor data.
+
+| Home | Cubemap | Sensor values debug |
+|--------|--------|--------|
+| <img src="./docs/images/home.png" width="200px" /> | <img src="./docs/images/cubemap.png" width="200px" /> | <img src="./docs/images/raw-sensor-values.png" width="200px" /> |
+
+| Demo |
+|--------|
+| <video src="./docs/videos/demo.mp4" height="400px" /> /> |
+
 
 > [!IMPORTANT]
 >
@@ -74,9 +83,9 @@ npm run android
 > - Minor version: Increment when adding new functionality in a backward-compatible way.
 > - Patch version: Increment when fixing bugs in a backward-compatible manner.
 
-1. Push your changes to the `main` branch.
+1. Bump `package.json` version using one of: `npm version patch|minor|major`, commit and push the change to `main`.
 2. Navigate to [Create a New Release](https://github.com/the-curve-consulting/expo-sensor-fusion/releases/new)
-3. Create a new tag using the semantic versioning format, prefixed with `v` (e.g., `E.g.: v2.3.0`).
+3. Create a new tag using the semantic versioning format following the bumped package version, prefixed with `v` (e.g., `E.g.: v2.3.0`).
 4. Use the same name as the tag for the release title.
 5. Click <kbd>Generate release notes</kbd>, and/or edit the description to detail the changes.
 6. Click the green <kbd>Publish release</kbd> button.

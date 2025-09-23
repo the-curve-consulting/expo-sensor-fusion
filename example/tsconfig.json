@@ -3,8 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@the-curve-consulting/expo-sensor-fusion": ["../src/index"],
-      "@the-curve-consulting/expo-sensor-fusion/*": ["../src/*"]
+      "@the-curve-consulting/expo-sensor-fusion": ["../srcation/index.ts"],
+      "@the-curve-consulting/expo-sensor-fusion/*": ["../srcation/*"]
     }
   }
 }

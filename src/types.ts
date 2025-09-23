@@ -1,6 +1,12 @@
-import { NativeModule } from 'react-native';
+import { NativeModule } from 'expo';
 
-export interface IExpoSensorFusion extends NativeModule {
+import { ROTATION_UPDATED_EVENT_NAME, RotationUpdatedEvent } from './events/rotation-updated';
+
+type ExpoSensorFusionModuleEvents = {
+  [ROTATION_UPDATED_EVENT_NAME]: (event: RotationUpdatedEvent) => void
+};
+
+export declare class ExpoSensorFusionModule extends NativeModule<ExpoSensorFusionModuleEvents> {
   /**
    * Checks whether or not the rotation sensor is available on the current device.
    *
