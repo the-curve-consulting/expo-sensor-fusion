@@ -2,13 +2,11 @@
 
 A react native library for reading native device rotation sensor data.
 
+[Watch a demo video](./docs/videos/demo.mp4)
+
 | Home | Cubemap | Sensor values debug |
 |--------|--------|--------|
 | <img src="./docs/images/home.png" width="200px" /> | <img src="./docs/images/cubemap.png" width="200px" /> | <img src="./docs/images/raw-sensor-values.png" width="200px" /> |
-
-| Demo |
-|--------|
-| <video src="./docs/videos/demo.mp4" height="400px" /> /> |
 
 
 > [!IMPORTANT]
