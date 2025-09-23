@@ -32,7 +32,7 @@ class RotationUpdatesService(
   }
 
   companion object {
-    const val EVENT_NAME = "rotationUpdated"
+    const val EVENT_NAME = "onRotationUpdated"
   }
 
   fun startObservingRotationUpdates() {

@@ -1,11 +1,11 @@
-name: Publish
+name: CI
 on:
-  release:
-    types: created
-
+  pull_request:
+  push:
+    branches:
+      - main
 jobs:
-  publish:
-    name: 'Publish NPM package to GitHub Packages'
+  CI:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     concurrency:
@@ -13,7 +13,7 @@ jobs:
       cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
     permissions:
       contents: read
-      packages: write
+      packages: write  
     steps:
       - name: 🏗 Checkout repository
         uses: actions/checkout@v5
@@ -26,12 +26,10 @@ jobs:
           scope: '@the-curve-consulting'
 
       - name: 📦 Install dependencies
-        run: npm ci
+        run: npm ci    
       
+      - name: 🔬 Lint
+        run: npm lint
+
       - name: 🧪 Test
         run: npm test
-
-      - name: 🚀 Publish the package
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

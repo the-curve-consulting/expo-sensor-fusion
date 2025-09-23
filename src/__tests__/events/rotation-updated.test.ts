@@ -1,19 +1,20 @@
-import ExpoSensorFusionModule from '../../ExpoSensorFusionModule';
 import {
-  RotationUpdateEvent,
-  addRotationUpdateListener
-} from '../../events/rotationUpdates';
-import { cachedEventEmitter } from '../../libs/cachedEventEmitter';
+  addRotationUpdateListener,
+  RotationUpdatedEvent
+} from '../../events/rotation-updated';
+import ExpoSensorFusionModule from '../../ExpoSensorFusionModule';
 
-describe('rotationUpdates', () => {
+describe('rotation-updated', () => {
   let mockListener: jest.Mock;
 
   beforeEach(() => {
     mockListener = jest.fn();
+
+    jest.clearAllMocks();
   });
 
   describe('addRotationUpdateListener', () => {
-    it('can add a listener for "rotationUpdated" events', () => {
+    it('can add a listener for "onRotationUpdated" events', () => {
       const subscription = addRotationUpdateListener(mockListener);
 
       expect(subscription).toEqual({
@@ -26,21 +27,18 @@ describe('rotationUpdates', () => {
       ).toHaveBeenCalledTimes(1);
       expect(ExpoSensorFusionModule.addListener).toHaveBeenNthCalledWith(
         1,
-        'rotationUpdated'
+        'onRotationUpdated',
+        expect.any(Function)
       );
     });
 
-    it('can remove the listener for "rotationUpdated" events', () => {
+    it('can remove the listener for "onRotationUpdated" events', () => {
       const subscription = addRotationUpdateListener(mockListener);
       subscription.remove();
 
       expect(
         ExpoSensorFusionModule.stopObservingRotationUpdates
       ).toHaveBeenCalledTimes(1);
-      expect(ExpoSensorFusionModule.removeListeners).toHaveBeenNthCalledWith(
-        1, // is called one time
-        1 // with 1 as its argument
-      );
     });
 
     it('receives the correct "rotationUpdate" events when being listened to and can unsubscribe', () => {
@@ -50,25 +48,28 @@ describe('rotationUpdates', () => {
       expect(mockListener).not.toHaveBeenCalled();
 
       // Simulate an event emitted from the native-side
-      const mockRotationUpdateEvent: RotationUpdateEvent = {
+      const mockRotationUpdatedEvent: RotationUpdatedEvent = {
         rotationMatrix: {
-          m11: 1, m12: 2, m13: 3, // eslint-disable-line prettier/prettier
-          m21: 4, m22: 5, m23: 6, // eslint-disable-line prettier/prettier
-          m31: 7, m32: 8, m33: 9, // eslint-disable-line prettier/prettier
+          m11: 1, m12: 2, m13: 3,
+          m21: 4, m22: 5, m23: 6,
+          m31: 7, m32: 8, m33: 9
         }
       };
-      cachedEventEmitter().emit('rotationUpdated', mockRotationUpdateEvent);
-      cachedEventEmitter().emit('rotationUpdated', mockRotationUpdateEvent);
-      // Gets called when an event is emitted.
-      expect(mockListener).toHaveBeenNthCalledWith(2, mockRotationUpdateEvent);
+
+      // Gets called when an event is emitted (including multiple times)
+      ExpoSensorFusionModule.emit('onRotationUpdated', mockRotationUpdatedEvent);
+      ExpoSensorFusionModule.emit('onRotationUpdated', mockRotationUpdatedEvent);
+      expect(mockListener).toHaveBeenNthCalledWith(2, mockRotationUpdatedEvent);
 
       // Reset the number of times this mock have been called, so that we can assert
       // that it does not get called again on the next check after unsubscribing.
-      mockListener.mockClear();
+      mockListener.mockRestore();
+
       // Unsubscribe and ensure that no event is listened regardless of it being emitted for some reason.
       subscription.remove();
-      cachedEventEmitter().emit('rotationUpdated', mockRotationUpdateEvent);
-      cachedEventEmitter().emit('rotationUpdated', mockRotationUpdateEvent);
+
+      ExpoSensorFusionModule.emit('onRotationUpdated', mockRotationUpdatedEvent);
+      ExpoSensorFusionModule.emit('onRotationUpdated', mockRotationUpdatedEvent);
       expect(mockListener).not.toHaveBeenCalled();
     });
   });

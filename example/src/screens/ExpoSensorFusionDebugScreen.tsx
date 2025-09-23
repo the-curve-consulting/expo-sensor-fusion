@@ -30,21 +30,21 @@ export const ExpoSensorFusionDebugScreen = ({
 
         const matrix = event.rotationMatrix;
         matrixRef.current.set(
-          matrix.m11, matrix.m21, matrix.m31, // eslint-disable-line prettier/prettier
-          matrix.m12, matrix.m22, matrix.m32, // eslint-disable-line prettier/prettier
-          matrix.m13, matrix.m23, matrix.m33, // eslint-disable-line prettier/prettier
+          matrix.m11, matrix.m21, matrix.m31,
+          matrix.m12, matrix.m22, matrix.m32,
+          matrix.m13, matrix.m23, matrix.m33
         );
 
         textRef.current?.setText(
-          `1,1:\t\t${matrix.m11}\n` +     // eslint-disable-line
-          `1,2:\t\t${matrix.m12}\n` +     // eslint-disable-line
-          `1,3:\t\t${matrix.m13}\n\n` +   // eslint-disable-line
-          `2,1:\t\t${matrix.m21}\n` +     // eslint-disable-line
-          `2,2:\t\t${matrix.m22}\n` +     // eslint-disable-line
-          `2,3:\t\t${matrix.m23}\n\n` +   // eslint-disable-line
-          `3,1:\t\t${matrix.m31}\n` +     // eslint-disable-line
-          `3,2:\t\t${matrix.m32}\n` +     // eslint-disable-line
-          `3,3:\t\t${matrix.m33}`         // eslint-disable-line
+          `1,1:\t\t${matrix.m11}\n` +   
+          `1,2:\t\t${matrix.m12}\n` +   
+          `1,3:\t\t${matrix.m13}\n\n` + 
+          `2,1:\t\t${matrix.m21}\n` +   
+          `2,2:\t\t${matrix.m22}\n` +   
+          `2,3:\t\t${matrix.m23}\n\n` + 
+          `3,1:\t\t${matrix.m31}\n` +   
+          `3,2:\t\t${matrix.m32}\n` +   
+          `3,3:\t\t${matrix.m33}`
         );
       });
 

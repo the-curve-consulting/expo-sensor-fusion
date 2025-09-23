@@ -1,11 +1,10 @@
 import ExpoSensorFusionModule from '../ExpoSensorFusionModule';
-import { cachedEventEmitter } from '../libs/cachedEventEmitter';
-import { enhanceSubscriptionWithCleanup } from '../libs/enhanceSubscriptionWithCleanup';
+import { enhanceSubscriptionWithCleanup } from '../libs/enhance-subscription-with-cleanup';
 import { EventListener, RotationMatrix, Subscription } from '../types';
 
-const ROTATION_UPDATED_EVENT_NAME = 'rotationUpdated';
+export const ROTATION_UPDATED_EVENT_NAME = 'onRotationUpdated';
 
-export type RotationUpdateEvent = {
+export type RotationUpdatedEvent = {
   rotationMatrix: RotationMatrix;
 };
 
@@ -25,13 +24,13 @@ export const isSensorAvailable = (): boolean => {
  * @returns A subscription object for removing the listener.
  */
 export const addRotationUpdateListener = (
-  listener: EventListener<RotationUpdateEvent>
+  listener: EventListener<RotationUpdatedEvent>
 ): Subscription => {
   // Start observing rotation updates
   ExpoSensorFusionModule.startObservingRotationUpdates();
 
   // Add listener to the eventEmitter
-  const subscription = cachedEventEmitter().addListener<RotationUpdateEvent>(
+  const subscription = ExpoSensorFusionModule.addListener(
     ROTATION_UPDATED_EVENT_NAME,
     listener
   );

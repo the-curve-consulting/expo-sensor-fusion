@@ -13,10 +13,10 @@ export const CameraController = () => {
       ExpoSensorFusion.addRotationUpdateListener((event) => {
         const matrix = event.rotationMatrix;
         matrixRef.current.set(
-          matrix.m11, matrix.m21, matrix.m31, 0, // eslint-disable-line prettier/prettier
-          matrix.m12, matrix.m22, matrix.m32, 0, // eslint-disable-line prettier/prettier
-          matrix.m13, matrix.m23, matrix.m33, 0, // eslint-disable-line prettier/prettier
-          0, 0, 0, 0                             // eslint-disable-line prettier/prettier
+          matrix.m11, matrix.m21, matrix.m31, 0,
+          matrix.m12, matrix.m22, matrix.m32, 0,
+          matrix.m13, matrix.m23, matrix.m33, 0,
+          0, 0, 0, 0                            
         );
         camera.rotation.setFromRotationMatrix(matrixRef.current);
       });
@@ -24,7 +24,7 @@ export const CameraController = () => {
     return () => {
       rotationUpdateSubscription.remove();
     };
-  }, []);
+  }, [camera]);
 
   return null;
 };

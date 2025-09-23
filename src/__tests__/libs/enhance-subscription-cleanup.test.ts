@@ -1,4 +1,4 @@
-import { enhanceSubscriptionWithCleanup } from '../../libs/enhanceSubscriptionWithCleanup';
+import { enhanceSubscriptionWithCleanup } from '../../libs/enhance-subscription-with-cleanup';
 import { Subscription } from '../../types';
 
 describe('enhanceSubscriptionWithCleanup', () => {

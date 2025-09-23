@@ -19,7 +19,7 @@ class RotationUpdatesService {
   
   private let eventCallback: EventCallback
   
-  static let EVENT_NAME = "rotationUpdated"
+  static let EVENT_NAME = "onRotationUpdated"
   
   init(eventCallback: @escaping EventCallback) {
     self.motionManager.deviceMotionUpdateInterval = 0.02 // 50 Hz
