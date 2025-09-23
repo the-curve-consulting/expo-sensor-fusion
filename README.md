@@ -8,7 +8,7 @@ A react native library for reading native device rotation sensor data.
 
 | Demo |
 |--------|
-| <video src="./docs/videos/demo.MP4" height="400px" /> /> |
+| <video src="./docs/videos/demo.mp4" height="400px" /> /> |
 
 
 > [!IMPORTANT]
