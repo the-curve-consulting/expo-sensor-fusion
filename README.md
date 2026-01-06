@@ -4,56 +4,96 @@ A react native library for reading native device rotation sensor data.
 
 [Watch a demo video](./docs/videos/demo.mp4)
 
-| Home | Cubemap | Sensor values debug |
-|--------|--------|--------|
+| Home                                               | Cubemap                                               | Sensor values debug                                             |
+| -------------------------------------------------- | ----------------------------------------------------- | --------------------------------------------------------------- |
 | <img src="./docs/images/home.png" width="200px" /> | <img src="./docs/images/cubemap.png" width="200px" /> | <img src="./docs/images/raw-sensor-values.png" width="200px" /> |
 
+## Installation
 
-> [!IMPORTANT]
->
-> This NPM package is hosted in the @the-curve-consulting GitHub registry.
->
-> To install or contribute to this package, you must have a GitHub personal access token (classic) linked to an account
-> with access to The Curve organization. In this documentation we will refer to this as being the `YOUR_GH_TOKEN_HERE`.
->
-> Steps to get started:
-> - Create or retrieve your personal access token by following the instructions in the [GitHub documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic).
-> - Save your token securely (if you haven’t already) in a trusted password manager, such as your personal 1Password vault, for future use.
->
-> Note: This token can also be used to authenticate with the @the-curve-consulting GitHub NPM registry, allowing you to install any package hosted there, not just this one.
-
-## Install this package on your expo app.
-
-1. Add `@the-curve-consulting GitHub NPM registry` to your expo project, by creating / editing your project's `.npmrc` file on the root of your project:
-
-```diff
-# .npmrc
-
-+ @the-curve-consulting:registry=https://npm.pkg.github.com
-+ //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
-```
-
-2. Add this dependency:
+This package works with both Expo and framework-less React Native projects but Expo provides a more streamlined experience.
 
 ```bash
-NODE_AUTH_TOKEN=YOUR_GH_TOKEN_HERE npm install @the-curve-consulting/expo-sensor-fusion
+npm install @the-curve-consulting/expo-sensor-fusion
+
+# bun add @the-curve-consulting/expo-sensor-fusion
+# pnpm add @the-curve-consulting/expo-sensor-fusion
 ```
 
-> [!IMPORTANT]
->
-> Anyone installing dependencies on your project will be required to provide the NODE_AUTH_TOKEN everytime they re-install the dependencies.
+### Usage
 
+See `/example/src/` for detailed example of how to use this package.
 
-3. That's it! See `/example/src/` for an example of how to use this package.
+#### Check sensor availability
+
+```tsx
+import { ExpoSensorFusion } from '@the-curve-consulting/expo-sensor-fusion';
+
+export const App = () => {
+  const [available, setAvailable] = useState(false)
+
+  useEffect(() => {
+    // Check if Sensor Fusion is available on this device
+    setAvailable(ExpoSensorFusion.isSensorAvailable())
+  }, [])
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>
+        {available ? (
+          'Rotation sensors are available in this device'
+        ) : (
+          'Rotation sensors are not available in this device'
+        )}
+      </Text>
+    </View>
+  )
+}
+```
+
+#### Subscribe to rotation matrix change events to use it with [`@react-three/fiber` + `threejs`](https://r3f.docs.pmnd.rs/)
+
+```tsx
+import { ExpoSensorFusion } from '@the-curve-consulting/expo-sensor-fusion';
+import { useThree } from '@react-three/fiber';
+import { Matrix4 } from 'three';
+
+export const CameraController = () => {
+  const { camera } = useThree();
+
+  const matrixRef = useRef(new Matrix4());
+
+  useEffect(() => {
+    const rotationUpdateSubscription =
+      ExpoSensorFusion.addRotationUpdateListener((event) => {
+        const matrix = event.rotationMatrix;
+        matrixRef.current.set(
+          matrix.m11, matrix.m21, matrix.m31, 0, // eslint-disable-line prettier/prettier
+          matrix.m12, matrix.m22, matrix.m32, 0, // eslint-disable-line prettier/prettier
+          matrix.m13, matrix.m23, matrix.m33, 0, // eslint-disable-line prettier/prettier
+          0, 0, 0, 0                             // eslint-disable-line prettier/prettier
+        );
+        camera.rotation.setFromRotationMatrix(matrixRef.current);
+      });
+
+    return () => {
+      rotationUpdateSubscription.remove();
+    };
+  }, []);
+
+  return null;
+};
+```
 
 ## Contributing
 
-- Ensure you're running the correct code version in your current terminal session: `nvm install && nvm use`
+- Ensure you're running the correct Node version in your current terminal session: `nvm install && nvm use`
 - Install all node dependencies: `npm install`
-- To edit the native code, ONLY edit them at `<root>/android` or `<root>/ios`:
-  - You can edit the native code using any IDE of your choice and on any machine. However it is recommended to use the default native IDE for each platform:
-    - Open Xcode to edit the iOS native code by running the following from the root of this repo: `npm run open:xcode`
-    - Open Android Studio to edit the Android native code by running from the root of this repo: `npm run open:androistudio`
+- Native source to edit using your favorite IDE: `<root>/android` or `<root>/ios`
+  - Open Xcode to edit the iOS native code by running the following from the root of this repo: `npm run open:xcode`
+  - Open Android Studio to edit the Android native code by running from the root of this repo: `npm run open:androistudio`
+- Run the example app
+  - iOS: `cd example; npm run ios`
+  - Android: `cd example; npm run android`
 
 > [!IMPORTANT]
 >
