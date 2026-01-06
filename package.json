@@ -1,6 +1,6 @@
 {
   "name": "@the-curve-consulting/expo-sensor-fusion",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A react native library for reading native device rotation sensor data.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
